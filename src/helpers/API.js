@@ -8,8 +8,19 @@ export default{
         return json;
     },
 
-    getProducts: async() => {
-        const response = await fetch(BASE + '/products');
+    getProducts: async(category,page,search) => {
+        let filter = {};
+        if(category != 0){
+            filter.category = category;
+        }
+        if(page > 0){
+            filter.page = page;
+        }
+        if(search != ''){
+            filter.search = search;
+        }
+        let query = new URLSearchParams(filter).toString();
+        const response = await fetch(BASE + '/products?'+ query);
         const json = await response.json();
         return json;
     }

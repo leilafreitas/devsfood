@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import { useHistory } from "react-router-dom";
-import { Container,
+import {Container,
     CategoryArea,
     CategoryList,
     ProductArea,
@@ -14,6 +14,8 @@ import api from '../../helpers/API';
 import CategoryItem from '../../components/CategoryItem';
 import ReactTooltip from 'react-tooltip';
 
+let searchTimer = null;
+
 export default () => {
     const history = useHistory();
     const [search,setSearch] = useState('');
@@ -22,10 +24,11 @@ export default () => {
     const [totalPages, setTotalPages] = useState(0);
 
     const [activeCategory,setActiveCategory] = useState(0);
-    const [activePage,setActivePage] = useState(0);
+    const [activePage,setActivePage] = useState(1);
+    const [activeSearch, setActiveSearch] = useState('');
 
     const getProducts = async() => {
-        const prods = await api.getProducts();
+        const prods = await api.getProducts(activeCategory,activePage,activeSearch);
         if(prods.error === ''){
             setTotalPages(prods.result.pages);
             setActivePage(prods.result.page);
@@ -42,11 +45,19 @@ export default () => {
             ReactTooltip.rebuild();
         }
         getCategories();
-    },[])
+    },[]);
 
     useEffect(()=>{
+        setProducts([]);
         getProducts();
-    },[activeCategory,activePage])
+    },[activeCategory,activePage,activeSearch]);
+
+    useEffect(()=>{
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(()=>{
+            setActiveSearch(search);
+        },2000)
+    },[search]);
 
     return (
         <Container>
