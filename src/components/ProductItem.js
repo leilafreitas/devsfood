@@ -12,8 +12,13 @@ import {
 } from './ProductItemStyled';
 
 export default (props) => {
+
+    const handleClick = () =>{
+        props.onClick(props.data)
+    }
+
     return(
-        <Container>
+        <Container onClick={handleClick}>
             <ProductPhotoArea>
                 <ProductPhoto src={props.data.image}/>
             </ProductPhotoArea>

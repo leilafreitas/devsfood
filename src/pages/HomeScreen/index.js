@@ -10,9 +10,12 @@ import {Container,
 } from './styled';
 import ProductItem from '../../components/ProductItem';
 import Header from '../../components/Header';
+import Modal from '../../components/Modal'
+import ModalProduct from '../../components/ModalProduct';
 import api from '../../helpers/API';
 import CategoryItem from '../../components/CategoryItem';
 import ReactTooltip from 'react-tooltip';
+import { ModalBody } from '../../components/ModalStyled';
 
 let searchTimer = null;
 
@@ -26,6 +29,8 @@ export default () => {
     const [activeCategory,setActiveCategory] = useState(0);
     const [activePage,setActivePage] = useState(1);
     const [activeSearch, setActiveSearch] = useState('');
+    const [show,setShow] = useState(false);
+    const [modalData,setModalData] = useState({});
 
     const getProducts = async() => {
         const prods = await api.getProducts(activeCategory,activePage,activeSearch);
@@ -34,6 +39,11 @@ export default () => {
             setActivePage(prods.result.page);
             setProducts(prods.result.data);
         } 
+    }
+
+    const handleProductClick = (data) => {
+        setModalData(data);
+        setShow(true);
     }
 
     useEffect(()=>{
@@ -92,6 +102,7 @@ export default () => {
                             return <ProductItem
                                 key={key}
                                 data={item}
+                                onClick={handleProductClick}
                             />
                         })
                         }
@@ -112,6 +123,10 @@ export default () => {
                 </ProductPaginationArea>
 
             }
+
+            <Modal status={show} setStatus={setShow}>
+                <ModalProduct data={modalData}/>
+            </Modal>
 
         </Container>
     );
