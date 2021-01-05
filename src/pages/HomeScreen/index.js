@@ -46,7 +46,7 @@ export default () => {
 
     useEffect(()=>{
         getProducts();
-    },[activeCategory])
+    },[activeCategory,activePage])
 
     return (
         <Container>
