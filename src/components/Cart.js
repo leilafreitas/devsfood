@@ -1,6 +1,8 @@
 import React from 'react';
 import {CartArea,CartBody,CartHeader,CartIcon,CartText} from './CartStyled';
+
 function Cart(){
+    
     return(
         <CartArea>
             <CartHeader>

@@ -3,9 +3,11 @@ import {Container,Logo,SearchInput} from './HeaderStyled';
 
 function Header({search,onSearch}){
     const [inputActive,setInputActive] = useState(search === ''? false : true);
+    
     const handleInputFocus=()=>{
         setInputActive(true);
     }
+    
     const handleInputBlur=()=>{
         if(search === ''){
             setInputActive(false);
@@ -15,6 +17,7 @@ function Header({search,onSearch}){
     const handleChange= (e) =>{
         onSearch(e.target.value)
     }
+    
     return(
         <Container>
             <Logo src={'/assets/logo.png'}/>

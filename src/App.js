@@ -7,6 +7,8 @@ import Tela2Screen from './pages/Tela2Screen';
 import MenuItem from './components/MenuItem';
 import Cart from './components/Cart';
 import PrivateRoute from './components/PrivateRoute';
+import ReactTooltip from 'react-tooltip';
+
 export default () => {
     const name = useSelector(state => state.user.name);
 
@@ -14,9 +16,9 @@ export default () => {
         <BrowserRouter>
             <Container>
                 <Menu>
-                    <MenuItem icon="./assets/store.png" link="/"/>
-                    <MenuItem icon="./assets/order.png" link="/orders"/>
-                    <MenuItem icon="./assets/profile.png" link="/profile"/>
+                    <MenuItem icon="./assets/store.png" link="/" title="Store"/>
+                    <MenuItem icon="./assets/order.png" link="/orders" title="Orders"/>
+                    <MenuItem icon="./assets/profile.png" link="/profile" title="Profile"/>
                 </Menu>
                 <PageBody>
                     <Switch>
@@ -35,6 +37,8 @@ export default () => {
                     </Switch>
                 </PageBody>
                 <Cart/>
+                <ReactTooltip id='tip-top' place='top' effect='solid'/>
+                <ReactTooltip id='tip-right' place='right' effect='solid'/>
             </Container>
         </BrowserRouter>
     );
