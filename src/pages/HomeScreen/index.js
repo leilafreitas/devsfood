@@ -125,7 +125,7 @@ export default () => {
             }
 
             <Modal status={show} setStatus={setShow}>
-                <ModalProduct data={modalData}/>
+                <ModalProduct data={modalData} setStatus={setShow}/>
             </Modal>
 
         </Container>
