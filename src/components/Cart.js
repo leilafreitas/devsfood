@@ -1,16 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
+import {useSelector} from 'react-redux';
 import {CartArea,CartBody,CartHeader,CartIcon,CartText} from './CartStyled';
 
 function Cart(){
     
+    const products = useSelector(state=>state.cart.products);
+
+    const [opened,setOpened] =  useState(false);
+
+    const handleCartClick = () =>{
+        setOpened(!opened);
+    }
+
     return(
         <CartArea>
-            <CartHeader>
+            <CartHeader onClick={handleCartClick}>
                 <CartIcon src={'/assets/cart.png'}/>
-                <CartText>Meu Carrinho (x)</CartText>
+                <CartText>Meu Carrinho ({products.length})</CartText>
+                {opened &&
+                    <CartIcon src={'./assets/down.png'}/>
+                }
+                
             </CartHeader>
-            <CartBody>
-
+            <CartBody active={opened}>
+                ...
             </CartBody>
         </CartArea>
     );

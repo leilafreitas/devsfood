@@ -10,6 +10,7 @@ export const CartArea = styled.div`
 `;
 
 export const CartBody = styled.div`
+    display:${props=>props.active ? 'block':'none'}
 
 `;
 
@@ -31,4 +32,5 @@ export const CartIcon = styled.img`
 export const CartText = styled.div`
     color:#fff;
     font-size:17px;
+    flex:1;
 `;

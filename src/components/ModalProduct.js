@@ -1,4 +1,5 @@
 import React,{useState,useEffect} from 'react';
+import {useDispatch} from 'react-redux';
 import {Container,
      ProductInfoArea,
      ProductPhoto,
@@ -14,27 +15,38 @@ import {Container,
      } from './ModalProductStyled';
 
 function Modal({data,setStatus}){
-
+    const dispatch = useDispatch();
     const [quantity,setQuantity] = useState(1);
 
     useEffect(()=>{
         setQuantity(1);
     },[data])
 
-    const handleCancel = () =>{
+    const handleCancel = () => {
         setStatus(false);
     }
 
-    const handleMinus = () =>{
+    const handleMinus = () => {
         if(quantity>0){
             setQuantity(quantity-1);
         }
     }
 
-    const handlePlus = () =>{
+    const handlePlus = () => {
         setQuantity(quantity+1);
     }
-    
+
+    const handleAddCart = () => {
+        dispatch({
+            type:'ADD_PRODUCT',
+            payload:{
+                data,
+                quantity
+            }
+        });
+        setStatus(false);
+    }
+
     return (
         <Container>
             <ProductArea>
@@ -58,7 +70,7 @@ function Modal({data,setStatus}){
             </ProductArea>
             <ProductButtons>
                 <ProductButtom small={true} onClick={handleCancel}>Cancelar</ProductButtom>
-                <ProductButtom>Adicionar ao carrinho</ProductButtom>
+                <ProductButtom onClick={handleAddCart}>Adicionar ao carrinho</ProductButtom>
             </ProductButtons>
         </Container>
     );
